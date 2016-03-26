@@ -67,6 +67,9 @@ namespace Nancy.Simple
 
 		public static void ShowDown(JObject gameState)
 		{
+            Console.WriteLine("============================================================================================");
+            Console.WriteLine("============================================================================================");
+            Console.WriteLine("============================================================================================");
             try
             {
                 GameState state = Newtonsoft.Json.JsonConvert.DeserializeObject<GameState>(gameState.ToString());
@@ -118,6 +121,8 @@ namespace Nancy.Simple
         static bool AllIn(List<HoleCard> holeCards)
         {
             if (CRS(holeCards[0].rank) > 7 && CRS(holeCards[1].rank) > 7)
+                return true;
+            else if (CRS(holeCards[0].rank) == 13 || CRS(holeCards[1].rank) == 13)
                 return true;
             else
                 return false;
