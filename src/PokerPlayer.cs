@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
-
+using System;
+using System.IO;
 namespace Nancy.Simple
 {
 	public static class PokerPlayer
@@ -8,8 +9,11 @@ namespace Nancy.Simple
 
 		public static int BetRequest(JObject gameState)
 		{
-			//TODO: Use this method to return the value You want to bet
-			return 0;
+            //TODO: Use this method to return the value You want to bet
+            Console.WriteLine(gameState.ToString());
+			return 0; //fold
+            //1000 chips
+            //
 		}
 
 		public static void ShowDown(JObject gameState)
