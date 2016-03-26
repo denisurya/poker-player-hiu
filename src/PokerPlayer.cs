@@ -47,10 +47,13 @@ namespace Nancy.Simple
 
             foreach (var card in lstCommCards)
             {
-                ret += card.rank + card.suit + Environment.NewLine;
+                ret += card.rank + card.suit + ",";
             }
 
-            return ret;
+            if (ret != "")
+                return ret.Substring(0, ret.Length - 2);
+            else
+                return "nocards";
         }
 	}
 }
