@@ -38,7 +38,7 @@ namespace Nancy.Simple
 
                     Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
 
-                    if (state.current_buy_in - us.bet == 0)
+                    if (CheckBet(us.hole_cards) && state.current_buy_in - us.bet == 0)
                     {
                         Console.WriteLine("We can check, so we bet {0}", state.minimum_raise);
                         return state.minimum_raise;
@@ -76,15 +76,11 @@ namespace Nancy.Simple
                 Console.WriteLine("Error {0}", ex.Message);
             }
 
-
             return 1000;
         }
 
-
-
         public static void ShowDown(JObject gameState)
         {
-
             try
             {
                 GameState state = Newtonsoft.Json.JsonConvert.DeserializeObject<GameState>(gameState.ToString());
@@ -102,9 +98,7 @@ namespace Nancy.Simple
             }
 
             Console.WriteLine("============================================================================================");
-
         }
-
 
         static string ShowCards(List<HoleCard> cards)
         {
@@ -124,7 +118,6 @@ namespace Nancy.Simple
                 return "nocards";
         }
 
-
         static bool AllIn(List<HoleCard> holeCards)
         {
             if (CRS(holeCards[0].rank) > 10 && CRS(holeCards[1].rank) > 10)
@@ -135,6 +128,13 @@ namespace Nancy.Simple
                 return true;
             else
                 return false;
+        }
+
+        static bool CheckBet(List<HoleCard> holeCards)
+        {
+            if (CRS(holeCards[0].rank) > 6|| CRS(holeCards[1].rank) > 6)
+                return true;
+            else return false;
         }
 
         static int CRS(string cardRank)
@@ -163,16 +163,13 @@ namespace Nancy.Simple
                     return 10;
                 case "Q":
                     return 11;
-
                 case "K":
                     return 12;
                 case "A":
                     return 13;
-
                 default:
                     break;
             }
-
 
             return -1;
         }
