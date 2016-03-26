@@ -37,6 +37,19 @@ namespace Nancy.Simple
                     }
 
                     Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
+
+                    if (state.current_buy_in - us.bet == 0)
+                    {
+                        Console.WriteLine("We can check, so we bet {0}", state.minimum_raise);
+                        return state.minimum_raise;
+                    }
+
+                    if (state.current_buy_in - us.bet <= state.small_blind * 2)
+                    {
+                        Console.WriteLine("We need to call out of BB, so we raise {0}", state.small_blind * 2 + state.minimum_raise);
+                        return state.small_blind * 2 + state.minimum_raise;
+                    }
+
                     if (AllIn(us.hole_cards))
                     {
                         Console.WriteLine("We go all in");
