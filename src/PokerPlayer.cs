@@ -9,9 +9,10 @@ namespace Nancy.Simple
 
 		public static int BetRequest(JObject gameState)
 		{
-            //TODO: Use this method to return the value You want to bet
+			//TODO: Use this method to return the value You want to bet
+		
             Console.WriteLine(gameState.ToString());
-			return 0; //fold
+			return 1000; //fold
             //1000 chips
             //
 		}
