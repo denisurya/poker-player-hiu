@@ -26,6 +26,11 @@ namespace Nancy.Simple
                     Console.WriteLine("Community cards: {0}", ShowCards(state.community_cards));
                     return state.current_buy_in - us.bet;
                 }
+                else
+                {
+                    Console.WriteLine("We are null");
+                }
+
                 
             }
             catch (Exception ex)
