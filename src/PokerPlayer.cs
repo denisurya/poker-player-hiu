@@ -78,11 +78,13 @@ namespace Nancy.Simple
                 //    initStack = -1;
                 //}
 
-                List<Player> players = state.players.FindAll(p => p.status == "active");
-                foreach (Player player  in players)
+                //List<Player> players = state.players.FindAll(p => p.status == "active");
+                foreach (Player player in state.players)
                 {
                     Console.WriteLine("Player {0}, Cards: {1}, Stack: {2}", player.name, ShowCards(player.hole_cards), player.stack);
                 }
+                
+                
 
                 //else
                 //    Console.WriteLine("We are null at showdown");
@@ -94,11 +96,14 @@ namespace Nancy.Simple
 		}
 
 
-        static string ShowCards(List<HoleCard> lstCommCards)
+        static string ShowCards(List<HoleCard> cards)
         {
             string ret = "";
 
-            foreach (var card in lstCommCards)
+            if (cards == null || cards.Count == 0)
+                return ret;
+
+            foreach (var card in cards)
             {
                 ret += card.rank + card.suit + ",";
             }
