@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 namespace Nancy.Simple
 {
-	public static class PokerPlayer
-	{
-		public static readonly string VERSION = "Default C# folding player";
+    public static class PokerPlayer
+    {
+        public static readonly string VERSION = "Default C# folding player";
 
         const string ourName = "Hiu";
 
@@ -14,17 +14,14 @@ namespace Nancy.Simple
 
         static int initStack = -1;
 
-		public static int BetRequest(JObject gameState)
-		{
+        public static int BetRequest(JObject gameState)
+        {
 
             try
             {
                 GameState state = Newtonsoft.Json.JsonConvert.DeserializeObject<GameState>(gameState.ToString());
 
-                foreach (Player player in state.players)
-                {
-                    Console.WriteLine("Player {0}, Stack: {1}", player.name, player.stack);
-                }
+
 
                 Player us = state.players.Find(p => p.name == ourName);
                 if (us != null)
@@ -32,18 +29,18 @@ namespace Nancy.Simple
                     if (initStack == -1)
                     {
                         initStack = us.stack;
-                        Console.WriteLine("===Our start stack: {0}====", initStack);
+                        Console.WriteLine("Our start stack: {0}", initStack);
                     }
 
-                    Console.WriteLine("===Our cards: {0}===", ShowCards(us.hole_cards));
+                    Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
                     if (AllIn(us.hole_cards))
                     {
-                        Console.WriteLine("===We go all in===");
+                        Console.WriteLine("We go all in");
                         return us.stack;
                     }
                     else
                     {
-                        Console.WriteLine("===We check/fold===");
+                        Console.WriteLine("We check/fold");
                         return 0;
                     }
 
@@ -55,41 +52,32 @@ namespace Nancy.Simple
                     Console.WriteLine("We are null");
                 }
 
-                
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error {0}", ex.Message);
             }
-            
-            
+
+
             return 1000;
-		}
+        }
 
-        
 
-		public static void ShowDown(JObject gameState)
-		{
-            
+
+        public static void ShowDown(JObject gameState)
+        {
+
             try
             {
-                Console.WriteLine("SHOWDOWN SHOWDOWN SHOWDOWN SHOWDOWN");
                 GameState state = Newtonsoft.Json.JsonConvert.DeserializeObject<GameState>(gameState.ToString());
                 foreach (Player player in state.players)
                 {
-                    if (state.players.Find(p => p.name == ourName).name == ourName)
-                    {
-                        Console.WriteLine("------");
-                    }
                     Console.WriteLine("Player {0}, Cards: {1}, Stack: {2}", player.name, ShowCards(player.hole_cards), player.stack);
-                    if (state.players.Find(p => p.name == ourName).name == ourName)
-                    {
-                        Console.WriteLine("------");
-                    }
                 }
 
                 Console.WriteLine("Community cards: {0}", ShowCards(state.community_cards));
-                
+
             }
             catch (Exception ex)
             {
@@ -169,6 +157,6 @@ namespace Nancy.Simple
 
             return -1;
         }
-	}
+    }
 }
 
