@@ -21,8 +21,9 @@ namespace Nancy.Simple
             {
                 GameState state = Newtonsoft.Json.JsonConvert.DeserializeObject<GameState>(gameState.ToString());
 
-
-
+                Console.WriteLine("Tournament: {0}", state.tournament_id.ToUpper().Substring(0, 4));
+                Console.WriteLine("Game: {0}", state.game_id.ToUpper().Substring(0, 4));
+                Console.WriteLine("Round: {0}", state.round.ToString());
                 Player us = state.players.Find(p => p.name == ourName);
 
                 Console.WriteLine("Players in hand: {0}", state.players.FindAll(p => p.stack > 0).Count);
