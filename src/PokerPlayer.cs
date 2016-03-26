@@ -40,7 +40,7 @@ namespace Nancy.Simple
                     }
                     else
                     {
-                        Console.WriteLine("We check/fild");
+                        Console.WriteLine("We check/fold");
                         return 0;
                     }
 
@@ -67,36 +67,26 @@ namespace Nancy.Simple
 
 		public static void ShowDown(JObject gameState)
 		{
-            Console.WriteLine("============================================================================================");
-            Console.WriteLine("============================================================================================");
-            Console.WriteLine("============================================================================================");
+            
             try
             {
                 GameState state = Newtonsoft.Json.JsonConvert.DeserializeObject<GameState>(gameState.ToString());
-                //Player us = state.players.Find(p => p.name == ourName);
-                //if (us != null)
-                //{
-                //    int ourStack = us.stack;
-                //    Console.WriteLine("Showdown stack {0}, Initial stack: {1}, Profit: {2}", ourStack, initStack, ourStack - initStack);
-                //    initStack = -1;
-                //}
-
-                //List<Player> players = state.players.FindAll(p => p.status == "active");
                 foreach (Player player in state.players)
                 {
                     Console.WriteLine("Player {0}, Cards: {1}, Stack: {2}", player.name, ShowCards(player.hole_cards), player.stack);
                 }
-                
-                
 
-                //else
-                //    Console.WriteLine("We are null at showdown");
+                Console.WriteLine("Community cards: {0}", ShowCards(state.community_cards));
+                
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Show down ex: {0}", ex.Message);
             }
-		}
+
+            Console.WriteLine("============================================================================================");
+
+        }
 
 
         static string ShowCards(List<HoleCard> cards)
