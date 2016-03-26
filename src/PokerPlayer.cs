@@ -22,9 +22,10 @@ namespace Nancy.Simple
                 Player us = state.players.Find(p => p.name == ourName);
                 if (us != null)
                 {
-                    Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
-
+                    //Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
+                    return state.current_buy_in - us.bet;
                 }
+                
             }
             catch (Exception ex)
             {
@@ -37,7 +38,14 @@ namespace Nancy.Simple
 
 		public static void ShowDown(JObject gameState)
 		{
-			//TODO: Use this method to showdown
+            try
+            {
+                Console.WriteLine("Showdown");
+            }
+            catch (Exception ex)
+            {
+                
+            }
 		}
 
 
