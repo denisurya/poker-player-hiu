@@ -7,14 +7,20 @@ namespace Nancy.Simple
 	{
 		public static readonly string VERSION = "Default C# folding player";
 
+
+        static int counter = 0;
+
 		public static int BetRequest(JObject gameState)
 		{
 			//TODO: Use this method to return the value You want to bet
-		
-            Console.WriteLine(gameState.ToString());
-			return 1000; //fold
-            //1000 chips
-            //
+
+
+            string toLog = counter++.ToString() + Environment.NewLine + gameState.ToString() + Environment.NewLine;
+
+
+            Console.WriteLine(toLog);
+			
+            return 1000;
 		}
 
 		public static void ShowDown(JObject gameState)
