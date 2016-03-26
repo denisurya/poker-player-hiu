@@ -114,6 +114,8 @@ namespace Nancy.Simple
                 return true;
             else if (CRS(holeCards[0].rank) == 13 || CRS(holeCards[1].rank) == 13)
                 return true;
+            else if (CRS(holeCards[0].rank) == CRS(holeCards[1].rank) && CRS(holeCards[1].rank) > 3)
+                return true;
             else
                 return false;
         }
