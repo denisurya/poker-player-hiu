@@ -38,17 +38,17 @@ namespace Nancy.Simple
 
                     Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
 
-                    if (CheckBet(us.hole_cards) && state.current_buy_in - us.bet == 0)
-                    {
-                        Console.WriteLine("We can check, so we bet {0}", state.minimum_raise);
-                        return state.minimum_raise;
-                    }
+                    //if (CheckBet(us.hole_cards) && state.current_buy_in - us.bet == 0)
+                    //{
+                    //    Console.WriteLine("We can check, so we bet {0}", state.minimum_raise);
+                    //    return state.minimum_raise;
+                    //}
 
-                    if (state.current_buy_in - us.bet <= state.small_blind * 2)
-                    {
-                        Console.WriteLine("We need to call out of BB, so we raise {0}", state.small_blind * 2 + state.minimum_raise);
-                        return state.small_blind * 2 + state.minimum_raise;
-                    }
+                    //if (state.current_buy_in - us.bet <= state.small_blind * 2)
+                    //{
+                    //    Console.WriteLine("We need to call out of BB, so we raise {0}", state.small_blind * 2 + state.minimum_raise);
+                    //    return state.small_blind * 2 + state.minimum_raise;
+                    //}
 
                     if (AllIn(us.hole_cards))
                     {
@@ -120,10 +120,10 @@ namespace Nancy.Simple
 
         static bool AllIn(List<HoleCard> holeCards)
         {
-            if (CRS(holeCards[0].rank) > 10 && CRS(holeCards[1].rank) > 10)
+            if (CRS(holeCards[0].rank) > 7 && CRS(holeCards[1].rank) > 7)
                 return true;
-            //else if (CRS(holeCards[0].rank) == 13 || CRS(holeCards[1].rank) == 13)
-            //    return true;
+            else if (CRS(holeCards[0].rank) == 13 || CRS(holeCards[1].rank) == 13)
+                return true;
             else if (CRS(holeCards[0].rank) == CRS(holeCards[1].rank) && CRS(holeCards[1].rank) > 8)
                 return true;
             else
