@@ -22,7 +22,8 @@ namespace Nancy.Simple
                 Player us = state.players.Find(p => p.name == ourName);
                 if (us != null)
                 {
-                    //Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
+                    Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
+                    Console.WriteLine("Community cards: {0}", ShowCards(state.community_cards));
                     return state.current_buy_in - us.bet;
                 }
                 
