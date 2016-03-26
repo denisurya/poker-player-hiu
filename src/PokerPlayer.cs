@@ -12,6 +12,8 @@ namespace Nancy.Simple
 
         static int counter = 0;
 
+        static int initStack = -1;
+
 		public static int BetRequest(JObject gameState)
 		{
 
@@ -19,9 +21,17 @@ namespace Nancy.Simple
             {
                 GameState state = Newtonsoft.Json.JsonConvert.DeserializeObject<GameState>(gameState.ToString());
 
+                
+
                 Player us = state.players.Find(p => p.name == ourName);
                 if (us != null)
                 {
+                    if (initStack == -1)
+                    {
+                        initStack = us.stack;
+                        Console.WriteLine("Our start stack: {0}", initStack);
+                    }
+
                     Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
                     if (AllIn(us.hole_cards))
                     {
@@ -59,11 +69,20 @@ namespace Nancy.Simple
 		{
             try
             {
-                Console.WriteLine("Showdown");
+                GameState state = Newtonsoft.Json.JsonConvert.DeserializeObject<GameState>(gameState.ToString());
+                Player us = state.players.Find(p => p.name == ourName);
+                if (us != null)
+                {
+                    int ourStack = us.stack;
+                    Console.WriteLine("Showdown stack {0}, Initial stack: {1}, Profit: {2}", ourStack, initStack, ourStack - initStack);
+                    initStack = -1;
+                }
+                else
+                    Console.WriteLine("We are null at showdown");
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine("Show down ex: {0}", ex.Message);
             }
 		}
 
