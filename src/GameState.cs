@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Nancy.Simple
 {
+
+    
     public class HoleCard
     {
         public string rank { get; set; }

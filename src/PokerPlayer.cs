@@ -23,8 +23,19 @@ namespace Nancy.Simple
                 if (us != null)
                 {
                     Console.WriteLine("Our cards: {0}", ShowCards(us.hole_cards));
-                    Console.WriteLine("Community cards: {0}", ShowCards(state.community_cards));
-                    return state.current_buy_in - us.bet;
+                    if (AllIn(us.hole_cards))
+                    {
+                        Console.WriteLine("We go all in");
+                        return us.stack;
+                    }
+                    else
+                    {
+                        Console.WriteLine("We check/fild");
+                        return 0;
+                    }
+
+                    //Console.WriteLine("Community cards: {0}", ShowCards(state.community_cards));
+                    //return state.current_buy_in - us.bet;
                 }
                 else
                 {
@@ -41,6 +52,8 @@ namespace Nancy.Simple
             
             return 1000;
 		}
+
+        
 
 		public static void ShowDown(JObject gameState)
 		{
@@ -68,6 +81,55 @@ namespace Nancy.Simple
                 return ret.Substring(0, ret.Length - 2);
             else
                 return "nocards";
+        }
+
+
+        static bool AllIn(List<HoleCard> holeCards)
+        {
+            if (CRS(holeCards[0].rank) > 7 && CRS(holeCards[1].rank) > 7)
+                return true;
+            else
+                return false;
+        }
+
+        static int CRS(string cardRank)
+        {
+            switch (cardRank)
+            {
+                case "2":
+                    return 1;
+                case "3":
+                    return 2;
+                case "4":
+                    return 3;
+                case "5":
+                    return 4;
+                case "6":
+                    return 5;
+                case "7":
+                    return 6;
+                case "8":
+                    return 7;
+                case "9":
+                    return 8;
+                case "10":
+                    return 9;
+                case "J":
+                    return 10;
+                case "Q":
+                    return 11;
+
+                case "K":
+                    return 12;
+                case "A":
+                    return 13;
+
+                default:
+                    break;
+            }
+
+
+            return -1;
         }
 	}
 }
