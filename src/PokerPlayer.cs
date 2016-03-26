@@ -70,15 +70,22 @@ namespace Nancy.Simple
             try
             {
                 GameState state = Newtonsoft.Json.JsonConvert.DeserializeObject<GameState>(gameState.ToString());
-                Player us = state.players.Find(p => p.name == ourName);
-                if (us != null)
+                //Player us = state.players.Find(p => p.name == ourName);
+                //if (us != null)
+                //{
+                //    int ourStack = us.stack;
+                //    Console.WriteLine("Showdown stack {0}, Initial stack: {1}, Profit: {2}", ourStack, initStack, ourStack - initStack);
+                //    initStack = -1;
+                //}
+
+                List<Player> players = state.players.FindAll(p => p.status == "active");
+                foreach (Player player  in players)
                 {
-                    int ourStack = us.stack;
-                    Console.WriteLine("Showdown stack {0}, Initial stack: {1}, Profit: {2}", ourStack, initStack, ourStack - initStack);
-                    initStack = -1;
+                    Console.WriteLine("Player {0}, Cards: {1}, Stack: {2}", player.name, ShowCards(player.hole_cards), player.stack);
                 }
-                else
-                    Console.WriteLine("We are null at showdown");
+
+                //else
+                //    Console.WriteLine("We are null at showdown");
             }
             catch (Exception ex)
             {
