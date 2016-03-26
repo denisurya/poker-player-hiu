@@ -24,6 +24,9 @@ namespace Nancy.Simple
 
 
                 Player us = state.players.Find(p => p.name == ourName);
+
+                Console.WriteLine("Players in hand: {0}", state.players.FindAll(p => p.stack > 0).Count);
+
                 if (us != null)
                 {
                     if (initStack == -1)
